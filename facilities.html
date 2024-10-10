@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Room Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="hotel.css">
+    
+    <style>
+       
+        .pop {
+            transition: all 0.3s ease; /* Smooth transition */
+        }
+
+        /* Hover effect */
+        .pop:hover {
+            background-color: #f0f0f0; /* Light grey background on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+  
+    </style>
+  
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-3 shadow-sm sticky-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Room Booking</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Rooms</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Facilities</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+            </ul>
+            <div class="d-flex">
+              <!-- Login Button -->
+              <button type="button" class="btn btn-outline-dark shadow-sm me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <i class="bi bi-person-circle"></i> Login
+              </button>
+              <!-- Register Button -->
+              <button type="button" class="btn btn-outline-dark shadow-sm me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#registerModal">
+                <i class="bi bi-person-vcard"></i> Register
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Login Modal -->
+      <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="LoginModalLabel">
+                <i class="bi bi-person-circle"></i> Login</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <span class="badge rounded-pill bg-light text-dark mb-3 text-wrap">
+                    NOTE: Your email details must match with your ID (Aadhar card, passport, driving license, etc) required during check-in.
+                </span>
+
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control shadow-none">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">E-mail</label>
+                  <input type="email" class="form-control shadow-none">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input type="password" class="form-control shadow-none">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Phone number</label>
+                  <input type="number" class="form-control shadow-none">
+                </div>
+                
+                <div class="d-flex align-items-center justify-content-between">
+                  <button type="submit" class="btn btn-dark shadow-none">Submit</button>
+                  <a href="javascript:void(0)">Forgot password?</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Register Modal with Room Options -->
+      <div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="registerModalLabel">
+                <i class="bi bi-person-vcard"></i> Register for a Room</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="registrationForm">
+                <div class="mb-3">
+                  <label class="form-label">Email address</label>
+                  <input type="email" class="form-control shadow-none">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input type="password" class="form-control shadow-none">
+                </div>
+
+                <!-- Room Type Selection -->
+                <div class="mb-3">
+                  <label class="form-label">Select Room Type</label>
+                  <select class="form-select" id="roomType" onchange="toggleRoomOptions()">
+                    <option value="normal">Normal Room</option>
+                    <option value="vip">VIP Room</option>
+                  </select>
+                </div>
+                    <!-- Check-in and Check-out Date Fields (added for both room types) -->
+                <div class="mb-3">
+                  <label class="form-label">Check-in Date</label>
+                  <input type="date" class="form-control shadow-none" id="checkInDate">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Check-out Date</label>
+                  <input type="date" class="form-control shadow-none" id="checkOutDate">
+                </div>
+                    
+  
+                <!-- Conditional VIP Room Fields -->
+                <div id="vipRoomFields" style="display:none;">
+                  <div class="mb-3">
+                    <label class="form-label">Arrival Date</label>
+                    <input type="date" class="form-control shadow-none">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Departure Date</label>
+                    <input type="date" class="form-control shadow-none">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Post Requirements (For VIP Guests)</label>
+                    <input type="text" class="form-control shadow-none" placeholder="Special requests or needs">
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between">
+                  <button type="submit" class="btn btn-dark shadow-none">Submit</button>
+                  <a href="javascript:void(0)">Forgot password?</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<h2 class=" text-center fw-bold ">OUR FACILITIES</h2>
+ <div class=" h-line bg-dark"></div>
+ <p class="text-center mt-3">
+
+  Our hotel rooms offer modern comfort with a cozy bed, air conditioning, free Wi-Fi,<br>
+   flat-screen TV, and a private bathroom. Guests can enjoy room service, complimentary<br>
+   toiletries, and a minibar. You'll also have access to our on-site gym, restaurant, and<br>
+   free parking for a relaxing and convenient stay.
+ </p>
+
+ <div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
+  <div class="d-flex align-items-center mb-2">
+    <img src="https://t4.ftcdn.net/jpg/01/53/55/09/360_F_153550996_KrY2fKkQh4dHCnU4WuTTDRg2QZfDdwDo.jpg" width="80px">
+    <h5 class="m-0 ms-3">Wi-Fi</h5>
+  </div>
+  <p>
+    Enjoy complimentary high-speed Wi-Fi in every hotel room, perfect for staying connected,<br>
+     streaming, or getting work done during your stay. Reliable internet access is available <br>
+     throughout the hotel for your convenience.
+  </p>
+</div>
+<div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
+  <div class="d-flex align-items-center mb-2">
+    <img src="https://www.flavorsofaroma.com/wp-content/uploads/photo-gallery/imported_from_media_libray/60952654_2384241201855255_7980749839623258112_n.jpg?bwg=1671554206" width="150px">
+    <h5 class="m-0 ms-3">Food</h5>
+  </div>
+  <p>
+    Our hotel offers a variety of dining options to satisfy every taste. Guests can enjoy a complimentary <br>
+    breakfast buffet, featuring fresh local and international dishes. Room service is available for in-room dining,<br>
+     and our on-site restaurant serves lunch and dinner with a diverse menu. Special dietary requirements are accommodated,<br>
+     ensuring a delightful dining experience for all.
+  </p>
+</div>
+<div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
+  <div class="d-flex align-items-center mb-2">
+    <img src="https://urbanmatter.com/chicago/wp-content/uploads/2015/07/Hotel-Parking.jpg" width="150px">
+    <h5 class="m-0 ms-3">Free Parking</h5>
+  </div>
+  <p>
+    Enjoy the convenience of complimentary parking for all guests during your stay. Our secure parking facility is easily<br>
+     accessible, providing peace of mind while you explore the hotel and surrounding areas.
+  </p>
+</div>
+<div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
+  <div class="d-flex align-items-center mb-2">
+    <img src="https://cdnassets.hw.net/dims4/GG/64eba2a/2147483647/resize/480x%3E/quality/90/?url=https%3A%2F%2Fcdnassets.hw.net%2F0a%2Fb1%2Fc6e1735549029734e09359f00794%2Fmark-taylor-yoga-spin-barre.jpeg" width="150px">
+    <h5 class="m-0 ms-3">On Site Gym</h5>
+  </div>
+  <p>
+    Stay active during your stay with our fully equipped on-site gym. Featuring modern exercise machines, free weights, <br>
+    and cardio equipment, our fitness center caters to all fitness levels. Whether you’re looking to maintain your routine or<br>
+     try something new, our gym offers a convenient space to achieve your health goals.
+  </p>
+</div>
+<!-- ------ REACH US ------- -->
+<h2 class="mt-5 pt-4 text-center fw-bold h-font">REACH US</h2>
+<div class="container">
+ <div class="row">
+   <div class="col-lg-8 col-md-8 p-4 mb-lg-0 mb-3 bg-white rounded">
+     <iframe  class="w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d237967.58572844998!2d81.45460576927515!3d21.261825776639707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dda23be28229%3A0x163ee1204ff9e240!2sRaipur%2C%20Chhattisgarh!5e0!3m2!1sen!2sin!4v1727354602110!5m2!1sen!2sin"loading="lazy"></iframe>
+   </div>
+      <div class="col-lg-4 col-md-4">
+       <div class="bg-white p-4 rounded mb-4">
+         <h5>CALL US</h5>
+         <a href="tel : +8305857749" class="d-inline-block mb-2 text-dark">
+           <i class="bi bi-telephone-x"></i> +91-83058587749
+         <br>  <i class="bi bi-telephone-x"></i> 91-83058587749
+         </a>
+       </div>
+       <div class="bg-white p-4 rounded mb-4">
+         <h5>FOLLOW US</h5>
+         <a href="twitter: +8305857749" class="d-inline-block mb-3 text-dark">
+           <i class="bi bi-twitter me-1"></i>+91-83058587749
+         </a>
+         <a href="instgrame" class="d-inline-block mb-3  text-dark">
+           <i class="bi bi-instagram me-1"></i>+91-83058587749
+         </a>
+         <a href="facebook" class="d-inline-block mb-3 text-dark">
+           <i class="bi bi-facebook me-1"></i>+91-83058587749
+         </a>
+         <a href="twitter: +8305857749" class="d-inline-block mb-2 text-dark">
+           <i class="bi bi-twitter me-1"></i>+91-83058587749
+         </a>
+       </div>
+      </div>
+ </div>
+</div>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+ <!-- JavaScript to Toggle Room Options -->
+ <script>
+   function toggleRoomOptions() {
+     var roomType = document.getElementById("roomType").value;
+     var vipFields = document.getElementById("vipRoomFields");
+
+     if (roomType === "vip") {
+       vipFields.style.display = "block";
+     } else {
+       vipFields.style.display = "none";
+     }
+   }
+
+// Initialize Swiper
+var swiper = new Swiper(".mySwiper", {
+effect: "flip", // Flip effect for the slide
+grabCursor: true,
+pagination: {
+ el: ".swiper-pagination", // Element for pagination
+ clickable: true, // Pagination dots can be clicked
+},
+navigation: {
+ nextEl: ".swiper-button-next", // Button to navigate to the next slide
+ prevEl: ".swiper-button-prev", // Button to navigate to the previous slide
+},
+});
+</script>
+</body>
+</html>

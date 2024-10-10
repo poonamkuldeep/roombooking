@@ -1,0 +1,111 @@
+/* General Body Styles */
+body {
+    background-color: #f8f9fa; /* Light grey background */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Availability Form Styles */
+.availability-form {
+    margin: 20px 0;
+}
+
+.availability-form h4 {
+    color: #020202; /* Darker color for the heading */
+    margin-bottom: 20px;
+}
+
+.availability-form .form-label {
+    font-weight: 500;
+}
+
+/* Button Custom Styles */
+.custom-bg {
+    background-color: #007bff; /* Bootstrap primary color */
+}
+
+.custom-bg:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Card Styles for Rooms */
+.card {
+    transition: transform 0.2s; /* Smooth hover effect */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Slightly enlarge card on hover */
+}
+
+.card-img-top {
+    height: 200px; /* Set a fixed height for images */
+    object-fit: cover; /* Cover the area without distortion */
+}
+
+/* Room Title Styles */
+.card-body h5 {
+    font-weight: bold;
+    color: #007bff; /* Bootstrap primary color */
+}
+
+/* Price Style */
+.card-body h6 {
+    color: #28a745; /* Green color for price */
+}
+
+/* Feature and Facilities Badges */
+.Feature, .Facilities {
+    margin-bottom: 10px;
+}
+
+.badge {
+    background-color: #e9ecef; /* Light background for badges */
+}
+
+/* Rating Stars */
+.Rating i {
+    font-size: 1.2rem; /* Increase star size */
+}
+
+/* Button Custom Styles in Card */
+.card-body .btn {
+    width: 48%; /* Make buttons fit side by side */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .availability-form .col-lg-3, .availability-form .col-lg-1 {
+        margin-bottom: 15px; /* Spacing for smaller screens */
+    }
+
+    .card-body .btn {
+        width: 100%; /* Full width on mobile */
+        margin-top: 5px; /* Space between buttons */
+    }
+}
+
+body {
+    background: #f2f0f0;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .swiper {
+    width: 400px;
+    height: 300px;
+  }
+
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
